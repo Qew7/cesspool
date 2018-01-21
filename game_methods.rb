@@ -1,17 +1,26 @@
+require_relative 'game_controls.rb'
+
 class GameMethods
 
-	def init conf={}
+	attr_accessor :turn, :generation, :population
+
+	def initialize conf={}
 		start
 		@population = conf[:population] || 2
-		@generation = 1
+		@generation = conf[:generation] || 1
+		@turn = conf[:turn] || 0
 	end
 
-	def population
-		@population
+	def pass_turn
+		@turn = @turn + 1
 	end
 
 	def start
 		p "Welcome to the Cesspool!"
+	end
+
+	def handle_input
+		GameControls.state_machine self
 	end
 
 end
