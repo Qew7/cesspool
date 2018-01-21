@@ -19,23 +19,24 @@ class Main
 		p(ColorizedString[string].colorize(color: :green, background: :orange))
 	end
 
-	def main
-		mainStateMachine
+	def cycle
+		state_machine
 	end
 
-	def inProgress?
+	def in_progress?
 		@state
 	end
 
-	def endGame
+	def end_game
 		@state = false
 	end
 
-	def mainStateMachine
+	def state_machine
 		prompt = '> '
 		p "Whats next?"
 		print prompt
 		input = STDIN.getch
+		system "clear" or system "cls"
 		case input
 		when 'n'
 			p "Pass to next turn"
@@ -43,8 +44,9 @@ class Main
 			p "Population is #{@game.population}"
 		when 'e'
 			p "Ending the game"
-			endGame
+			end_game
 		when 'h'
+			p "Menu controls"
 			p "n - next turn"
 			p "h - help"
 			p "e - end game"
@@ -55,8 +57,8 @@ class Main
 
 end
 
-main = Main.new
+game = Main.new
 
-while(main.inProgress?)
-	main.main
+while(game.in_progress?)
+	game.cycle
 end
